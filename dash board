@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIVA Chicken Farm - Account System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <h2>SIVA Chicken Farm</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="login()">Login</button>
+            <p id="loginError" class="error"></p>
+        </div>
+    </div>
+
+    <div class="app-container" id="appContainer">
+        <header>
+            <h1>SIVA Chicken Farm</h1>
+            <button id="logoutBtn" class="logout-btn">Logout</button>
+        </header>
+
+        <div class="dashboard">
+            <div class="balance-cards">
+                <div class="card">
+                    <h3>Cash Balance</h3>
+                    <p id="cashBalance">₹0</p>
+                </div>
+                <div class="card">
+                    <h3>Credit Receivable</h3>
+                    <p id="creditIn">₹0</p>
+                </div>
+                <div class="card">
+                    <h3>Credit Payable</h3>
+                    <p id="creditOut">₹0</p>
+                </div>
+            </div>
+
+            <div class="quick-stats">
+                <h2>Today's Summary</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span>Income</span>
+                        <p id="todayIncome">₹0</p>
+                    </div>
+                    <div class="stat-item">
+                        <span>Expense</span>
+                        <p id="todayExpense">₹0</p>
+                    </div>
+                    <div class="stat-item">
+                        <span>Broiler Sales</span>
+                        <p id="broilerSales">0</p>
+                    </div>
+                    <div class="stat-item">
+                        <span>Kalbird Sales</span>
+                        <p id="kalbirdSales">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="income">Income</button>
+            <button class="tab-btn" data-tab="expense">Expense</button>
+            <button class="tab-btn" data-tab="reports">Reports</button>
+            <button class="tab-btn" data-tab="settings">Settings</button>
+        </div>
+
+        <div class="tab-content active" id="income">
+            <!-- Income content will be loaded here -->
+        </div>
+
+        <div class="tab-content" id="expense">
+            <!-- Expense content will be loaded here -->
+        </div>
+
+        <div class="tab-content" id="reports">
+            <!-- Reports content will be loaded here -->
+        </div>
+
+        <div class="tab-content" id="settings">
+            <!-- Settings content will be loaded here -->
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
