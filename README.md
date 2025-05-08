@@ -1,199 +1,261 @@
-:root {
-    --primary: #4CAF50;
-    --secondary: #2196F3;
-    --danger: #F44336;
-    --warning: #FFC107;
-    --dark: #333;
-    --light: #f5f5f5;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SIVA CHICKEN FARM - Management</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff8f0;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #d35400;
+      text-align: center;
+    }
+    nav {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    nav button {
+      margin: 0 10px;
+      padding: 10px 16px;
+      background: #e67e22;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .page {
+      display: none;
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .active {
+      display: block;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .submit-btn {
+      margin-top: 20px;
+      padding: 12px;
+      background: #e67e22;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background: #f4a261;
+      color: white;
+    }
+    .balance {
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+  </style>
+</head>
+<body>
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+<h1>SIVA CHICKEN FARM</h1>
 
-body {
-    background-color: #f0f2f5;
-}
+<div class="balance">Main Account Balance: LKR <span id="mainBalance">250000</span></div>
 
-.login-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: var(--primary);
-}
+<nav>
+  <button onclick="swapPages('purchasePage')">Hen Purchase</button>
+  <button onclick="swapPages('sellingPage')">Selling</button>
+</nav>
 
-.login-box {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-}
+<!-- Hen Purchase Page -->
+<div id="purchasePage" class="page active">
+  <h2>Hen Purchase</h2>
+  <form id="purchaseForm">
+    <label>Hen Type:
+      <select id="henType" required>
+        <option value="Broiler">Broiler</option>
+        <option value="Kalbird">Kalbird</option>
+        <option value="Parents">Parents</option>
+      </select>
+    </label>
+    <label>Hen Count:
+      <input type="number" id="henCount" min="1" required>
+    </label>
+    <label>Purchase Price per Hen (LKR):
+      <input type="number" id="purchasePrice" min="1" required>
+    </label>
+    <button type="submit" class="submit-btn">Add Purchase</button>
+  </form>
 
-.login-box h2 {
-    margin-bottom: 1.5rem;
-    color: var(--dark);
-}
+  <table id="purchaseTable">
+    <thead>
+      <tr>
+        <th>Hen Type</th>
+        <th>Count</th>
+        <th>Price/Unit</th>
+        <th>Total Cost</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
 
-.login-box input {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-}
+<!-- Selling Page -->
+<div id="sellingPage" class="page">
+  <h2>Sell to Customer</h2>
+  <form id="sellingForm">
+    <label>Customer Contact:
+      <input type="text" id="contactNumber" required>
+    </label>
+    <label>Hen Type:
+      <select id="sellType" required>
+        <option value="Broiler">Broiler</option>
+        <option value="Kalbird">Kalbird</option>
+        <option value="Parents">Parents</option>
+      </select>
+    </label>
+    <label>Quantity (KG):
+      <input type="number" id="sellQty" min="1" required>
+    </label>
+    <label>Price per KG (LKR):
+      <input type="number" id="sellPrice" min="1" required>
+    </label>
+    <button type="submit" class="submit-btn">Add Sale</button>
+  </form>
 
-.login-box button {
-    width: 100%;
-    padding: 12px;
-    background-color: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 1rem;
-}
+  <table id="sellingTable">
+    <thead>
+      <tr>
+        <th>Contact</th>
+        <th>Type</th>
+        <th>Qty</th>
+        <th>Price/Unit</th>
+        <th>Total Sale</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
 
-.error {
-    color: var(--danger);
-    margin-top: 1rem;
-}
+<script>
+  let mainBalance = JSON.parse(localStorage.getItem('mainBalance')) || 250000;
+  document.getElementById("mainBalance").innerText = mainBalance.toFixed(2);
 
-.app-container {
-    display: none;
-    padding: 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+  function updateBalanceDisplay() {
+    document.getElementById("mainBalance").innerText = mainBalance.toFixed(2);
+    localStorage.setItem('mainBalance', JSON.stringify(mainBalance));
+  }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
+  function swapPages(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
 
-.logout-btn {
-    padding: 8px 16px;
-    background-color: var(--danger);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+  document.getElementById('purchaseForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const type = document.getElementById('henType').value;
+    const count = parseInt(document.getElementById('henCount').value);
+    const price = parseFloat(document.getElementById('purchasePrice').value);
+    const total = count * price;
 
-.dashboard {
-    margin-bottom: 2rem;
-}
+    mainBalance -= total;
+    updateBalanceDisplay();
 
-.balance-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${type}</td>
+      <td>${count}</td>
+      <td>${price}</td>
+      <td>${total.toFixed(2)}</td>
+      <td><button onclick="editRow(this, 'purchase')">Edit</button> <button onclick="deleteRow(this, 'purchase', ${total})">Delete</button></td>
+    `;
+    document.querySelector('#purchaseTable tbody').appendChild(row);
+    this.reset();
+  });
 
-.card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
+  document.getElementById('sellingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const contact = document.getElementById('contactNumber').value;
+    const type = document.getElementById('sellType').value;
+    const qty = parseFloat(document.getElementById('sellQty').value);
+    const price = parseFloat(document.getElementById('sellPrice').value);
+    const total = qty * price;
 
-.card h3 {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 0.5rem;
-}
+    mainBalance += total;
+    updateBalanceDisplay();
 
-.card p {
-    font-size: 1.8rem;
-    font-weight: bold;
-}
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${contact}</td>
+      <td>${type}</td>
+      <td>${qty}</td>
+      <td>${price}</td>
+      <td>${total.toFixed(2)}</td>
+      <td><button onclick="editRow(this, 'sell')">Edit</button> <button onclick="deleteRow(this, 'sell', ${total})">Delete</button></td>
+    `;
+    document.querySelector('#sellingTable tbody').appendChild(row);
+    this.reset();
+  });
 
-.quick-stats {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
+  function editRow(btn, type) {
+    const row = btn.parentElement.parentElement;
+    const cells = row.querySelectorAll('td');
+    if (type === 'purchase') {
+      document.getElementById('henType').value = cells[0].textContent;
+      document.getElementById('henCount').value = cells[1].textContent;
+      document.getElementById('purchasePrice').value = cells[2].textContent;
+      mainBalance += parseFloat(cells[3].textContent);
+    } else {
+      document.getElementById('contactNumber').value = cells[0].textContent;
+      document.getElementById('sellType').value = cells[1].textContent;
+      document.getElementById('sellQty').value = cells[2].textContent;
+      document.getElementById('sellPrice').value = cells[3].textContent;
+      mainBalance -= parseFloat(cells[4].textContent);
+    }
+    row.remove();
+    updateBalanceDisplay();
+  }
 
-.quick-stats h2 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-}
+  function deleteRow(btn, type, amount) {
+    const row = btn.parentElement.parentElement;
+    if (type === 'purchase') {
+      mainBalance += amount;
+    } else {
+      mainBalance -= amount;
+    }
+    row.remove();
+    updateBalanceDisplay();
+  }
+</script>
 
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-}
-
-.stat-item {
-    text-align: center;
-}
-
-.stat-item span {
-    display: block;
-    color: #666;
-    font-size: 0.9rem;
-}
-
-.stat-item p {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-top: 0.5rem;
-}
-
-.tabs {
-    display: flex;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 1rem;
-}
-
-.tab-btn {
-    padding: 12px 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    color: #666;
-    position: relative;
-}
-
-.tab-btn.active {
-    color: var(--primary);
-    font-weight: bold;
-}
-
-.tab-btn.active::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background-color: var(--primary);
-}
-
-.tab-content {
-    display: none;
-    padding: 1rem;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.tab-content.active {
-    display: block;
-}
-
-/* Add more styles for forms, tables, etc. */
+</body>
+</html>
